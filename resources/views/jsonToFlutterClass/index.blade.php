@@ -53,35 +53,11 @@
             </form>
         </div>
         <div class="result">
-            <button class="btn btn-block btn-primary rounded-0" type="button">COPY</button>
-            <pre id="result_code" data-fouc>import 'dart:convert';
-
-class ProfileRekeningModel {
-    int? id;
-    int? idPegawai;
-    String? nomor;
-    String? bank;
-    String? atasNama;
-    bool? aktif;
-    bool? prioritas;
-
-    static fromJson(String jsonString) {
-        final data = json.decode(jsonString);
-        return fromDynamic(data);
-    }
-
-    static fromDynamic(dynamic dynamicData) {
-        final model = ProfileRekeningModel();
-        model.id = dynamicData['id'];
-        model.idPegawai = dynamicData['id_Pegawai'];
-        model.nomor = dynamicData['nomor'];
-        model.bank = dynamicData['bank'];
-        model.atasNama = dynamicData['atasNama'];
-        model.aktif = dynamicData['aktif'];
-        model.prioritas = dynamicData['prioritas'];
-        return model;
-    }
-}</pre>
+            <div class="text-end">
+                <button class="btn btn-block btn-primary rounded-0" onclick="copyOnPress()" type="button">COPY</button>
+                <button class="btn btn-block btn-primary rounded-0" onclick="downoadOnPress()" type="button">DOWNLOAD</button>
+            </div>
+            <pre id="result_code" data-fouc></pre>
         </div>
     <div>
 

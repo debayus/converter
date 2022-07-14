@@ -5,6 +5,7 @@ input_json.setShowPrintMargin(false);
 
 const result_code = ace.edit('result_code');
 result_code.setShowPrintMargin(false);
+let tempClassName = '';
 
 function isJsonString(str) {
     try {
@@ -23,7 +24,8 @@ const formOnSubmit = e => {
     e.preventDefault();
 
     // class name
-    const className = e.target['className'].value;
+    const className = getPropName(e.target['className'].value, true);
+    tempClassName = className;
 
     // convert string to json
     const isJson = isJsonString(input_json.getValue());
@@ -140,9 +142,29 @@ ${m.dynamics.join('\r')}
 
 function toSentenceCase(str) {
     return str.replace(
-      /\w\S*/g,
-      function(txt) {
+        /\w\S*/g,
+        function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      }
+        }
     );
-  }
+}
+
+function copyOnPress() {
+    navigator.clipboard.writeText(result_code.getValue());
+}
+
+function downoadOnPress() {
+    if (tempClassName){
+        download(`${tempClassName}Model.dart`, result_code.getValue());
+    }
+}
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
