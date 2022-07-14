@@ -49,13 +49,13 @@
         }
     ]
 }</pre>
-                <button class="btn btn-block btn-primary rounded-0" type="submit">PROCESS</button>
+                <button class="btn btn-primary rounded-0" type="submit">PROCESS</button>
             </form>
         </div>
         <div class="result">
             <div class="text-end result-buttons">
-                <button class="btn btn-block btn-primary rounded-0" onclick="copyOnPress()" type="button">COPY</button>
-                <button class="btn btn-block btn-primary rounded-0" onclick="downoadOnPress()" type="button">DOWNLOAD</button>
+                <button class="btn btn-primary rounded-0" onclick="copyOnPress()" type="button">COPY</button>
+                <button class="btn btn-primary rounded-0" onclick="downoadOnPress()" type="button">DOWNLOAD</button>
             </div>
             <pre id="result_code" data-fouc></pre>
         </div>

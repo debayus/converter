@@ -33,3 +33,27 @@ html, body {
     flex: 1;
     margin:0;
 }
+
+@media (max-width: 768px) {
+    .result{
+        flex: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .main, .menu, .menu form, .result{
+        display: block;
+    }
+
+    #input_json, #result_code{
+        height: 500px;
+    }
+
+    .menu{
+        margin-bottom: 15px;
+    }
+
+    .menu button{
+        width: 100%;
+    }
+}
