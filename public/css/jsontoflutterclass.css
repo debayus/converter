@@ -25,6 +25,10 @@ html, body {
     flex: 2;
 }
 
+.result-buttons{
+    background-color: #f0f0f0;
+}
+
 #input_json, #result_code{
     flex: 1;
     margin:0;

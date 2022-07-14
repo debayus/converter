@@ -53,7 +53,7 @@
             </form>
         </div>
         <div class="result">
-            <div class="text-end">
+            <div class="text-end result-buttons">
                 <button class="btn btn-block btn-primary rounded-0" onclick="copyOnPress()" type="button">COPY</button>
                 <button class="btn btn-block btn-primary rounded-0" onclick="downoadOnPress()" type="button">DOWNLOAD</button>
             </div>
