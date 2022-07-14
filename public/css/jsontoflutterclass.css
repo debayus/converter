@@ -1,0 +1,31 @@
+html, body {
+    height: 100%;
+}
+
+.main{
+    height: calc(100% - 56px);
+}
+
+.main{
+    display: flex;
+}
+
+.menu, .menu form{
+    display: flex;
+    flex: 1;
+}
+
+.menu form{
+    flex-direction: column;
+}
+
+.result{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+
+#input_json, #result_code{
+    flex: 1;
+    margin:0;
+}
