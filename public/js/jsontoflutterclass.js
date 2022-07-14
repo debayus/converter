@@ -55,7 +55,6 @@ const getModels = (className, json) => {
             const key = keys[i];
             const val = _json[key];
             const propName = getPropName(key);
-            props.push(`\t${getVariable(_className, key, val)} ${propName};`);
             if (Array.isArray(val) && val?.length > 0){
                 const classNamex = `${className}${getPropName(key, true)}`;
                 models.push(_getModel(classNamex, val[0]));
@@ -64,11 +63,13 @@ const getModels = (className, json) => {
                 rx += `\t\t\tfinal detailT = dynamicData['${key}'] as List;\r`;
                 rx += `\t\t\tmodel.${propName} = [];\r`;
                 rx += `\t\t\tfor (var i = 0; i < detailT.length; i++) {\r`;
-                rx += `\t\t\tmodel.${propName}!.add(${classNamex}.fromDynamic(detailT[i]));\r`;
+                rx += `\t\t\t\tmodel.${propName}!.add(${classNamex}Model.fromDynamic(detailT[i]));\r`;
                 rx += `\t\t\t}\r`;
                 rx += `\t\t}`;
+                props.push(`\t${getVariable(classNamex, val)} ${propName};`);
                 dynamics.push(rx);
             } else{
+                props.push(`\t${getVariable(_className, val)} ${propName};`);
                 dynamics.push(`\t\tmodel.${propName} = ${getDynamicData(_className, key, val)};`);
             }
         }
@@ -101,7 +102,7 @@ const getDynamicData = (className, key, val) => {
     }
 };
 
-const getVariable = (className, key, v) => {
+const getVariable = (className, v) => {
     if (v === 0){
         return 'int?';
     } else if (v === true){
@@ -113,7 +114,7 @@ const getVariable = (className, key, v) => {
     } else if (v?.ticks === 0) {
         return 'TimeOfDay?'
     } else if (Array.isArray(v)) {
-        return `List<${className}${getPropName(key, true)}Model>?`;
+        return `List<${className}Model>?`;
     } else {
         return 'String?';
     }
@@ -124,18 +125,18 @@ const getClass = m => {
 
 ${m.props.join('\r')}
 
-    static fromJson(String jsonString) {
-        final data = json.decode(jsonString);
-        return fromDynamic(data);
-    }
+\tstatic fromJson(String jsonString) {
+\t\tfinal data = json.decode(jsonString);
+\t\treturn fromDynamic(data);
+\t}
 
-    static fromDynamic(dynamic dynamicData) {
-        final model = ${m.className}();
+\tstatic fromDynamic(dynamic dynamicData) {
+\t\tfinal model = ${m.className}();
 
 ${m.dynamics.join('\r')}
 
-        return model;
-    }
+\t\treturn model;
+\t}
 }`;
     return r;
 };
