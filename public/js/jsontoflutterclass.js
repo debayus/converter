@@ -131,7 +131,7 @@ ${m.props.join('\r')}
 \t}
 
 \tstatic fromDynamic(dynamic dynamicData) {
-\t\tfinal model = ${m.className}();
+\t\tfinal model = ${m.className}Model();
 
 ${m.dynamics.join('\r')}
 
