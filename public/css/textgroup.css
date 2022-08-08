@@ -1,0 +1,59 @@
+html, body {
+    height: 100%;
+}
+
+.main{
+    height: calc(100% - 56px);
+}
+
+.main{
+    display: flex;
+}
+
+.menu, .menu form{
+    display: flex;
+    flex: 1;
+}
+
+.menu form{
+    flex-direction: column;
+}
+
+.result{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.result-buttons{
+    background-color: #f0f0f0;
+}
+
+#input_json, #result_code, #input_update{
+    flex: 1;
+    margin:0;
+}
+
+@media (max-width: 768px) {
+    .result{
+        flex: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .main, .menu, .menu form, .result{
+        display: block;
+    }
+
+    #input_json, #result_code, #input_update{
+        height: 500px;
+    }
+
+    .menu{
+        margin-bottom: 15px;
+    }
+
+    .menu button{
+        width: 100%;
+    }
+}
