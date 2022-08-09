@@ -12,11 +12,14 @@ let tempClassName = '';
 
 const formOnSubmit = e => {
     e.preventDefault();
-    const values = input_json.getValue().replace(/(\")/gm, "").split(/[ |\.|\?|\,|\:|\r\n|\n|\r\s]/).reduce((x, y) => {
+    const values = input_json.getValue().replace(/(\"|\”|\“)/gm, "").split(/[[0-9]| |\.|\?|\;|\!|\,|\:|\r\n|\n|\r|\—|\-|\‘\s]/).reduce((x, y) => {
         if (!Array.isArray(x)){
             x = [x];
         }
-        if (!x.find(a => a.toUpperCase() === y.toUpperCase()) && y){
+        if (!x.find(a => a.toUpperCase() === y.toUpperCase()) && y && y != '’'){
+            if (y[y.length - 1] === '’'){
+                y = y.substr(0, y.length - 1);
+            }
             x.push(y);
         }
         return x;
