@@ -86,6 +86,7 @@ const getModels = (className, json) => {
 
 const getPropName = (v, sentenceCase = false) => {
     if (!v) return v;
+    v = v.trim().replaceAll(' ', '_');
     v = v.split('_').map(x => toSentenceCase(x)).join('');
     if (!sentenceCase){
         v = v[0].toLowerCase() + v.substr(1);
@@ -104,6 +105,8 @@ const getDynamicData = (className, key, val) => {
         return `MahasFormat.dynamicToDouble(${dynamic})`;
     } else if (variable === 'bool?'){
         return `MahasFormat.dynamicToBool(${dynamic})`;
+    } else if (variable === 'TimeOfDay?'){
+        return `MahasFormat.dynamicToTimeOfDay(${dynamic})`;
     } else{
         return dynamic;
     }
@@ -114,11 +117,11 @@ const getVariable = (className, v) => {
         return isFloat(v) ? 'double?' : 'int?';
     } else if (v === true || v === false){
         return 'bool?';
-    } else if (v === 'string'){
-        return 'String?';
     } else if (!isNaN(new Date(v))){
         return 'DateTime?'
-    } else if (v?.ticks === 0) {
+    } else if (typeof v === 'string'){
+        return 'String?';
+    } else if (typeof v?.ticks === 'number') {
         return 'TimeOfDay?'
     } else if (Array.isArray(v)) {
         return `List<${className}Model>?`;
