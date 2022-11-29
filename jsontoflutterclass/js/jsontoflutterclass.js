@@ -39,6 +39,7 @@ const formOnSubmit = e => {
 
     let r = `import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../mahas/services/mahas_format.dart';
 
 ${listClass}
 `;
@@ -93,19 +94,25 @@ const getPropName = (v, sentenceCase = false) => {
 };
 
 const getDynamicData = (className, key, val) => {
-    const variable = getVariable(className, key, val);
+    const variable = getVariable(className, val);
     const dynamic = `dynamicData['${key}']`;
     if (variable === 'DateTime?'){
-        return `Helper.stringToDate(${dynamic})`;
-    }else{
+        return `MahasFormat.dynamicToDateTime(${dynamic})`;
+    } else if (variable === 'int?'){
+        return `MahasFormat.dynamicToInt(${dynamic})`;
+    } else if (variable === 'double?'){
+        return `MahasFormat.dynamicToDouble(${dynamic})`;
+    } else if (variable === 'bool?'){
+        return `MahasFormat.dynamicToBool(${dynamic})`;
+    } else{
         return dynamic;
     }
 };
 
 const getVariable = (className, v) => {
-    if (v === 0){
-        return 'int?';
-    } else if (v === true){
+    if (typeof v == 'number'){
+        return isFloat(v) ? 'double?' : 'int?';
+    } else if (v === true || v === false){
         return 'bool?';
     } else if (v === 'string'){
         return 'String?';
@@ -120,9 +127,12 @@ const getVariable = (className, v) => {
     }
 };
 
+function isFloat(n){
+    return Number(n) === n && n % 1 !== 0;
+}
+
 const getClass = m => {
     const r = `class ${m.className}Model {
-
 ${m.props.join('\r')}
 
 \tstatic fromJson(String jsonString) {
